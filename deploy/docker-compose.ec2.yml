@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ${ECR_REGISTRY}/${ECR_BACKEND_REPO}:${IMAGE_TAG:-latest}
+    container_name: fake-news-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ml-service
+    networks:
+      - appnet
+
+  ml-service:
+    image: ${ECR_REGISTRY}/${ECR_ML_REPO}:${IMAGE_TAG:-latest}
+    container_name: fake-news-ml-service
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge

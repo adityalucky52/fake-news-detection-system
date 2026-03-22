@@ -1,0 +1,22 @@
+FROM python:3.12-slim
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY pyproject.toml ./
+RUN pip install --no-cache-dir \
+    "fastapi>=0.135.1" \
+    "langchain>=1.2.12" \
+    "langchain-community>=0.4.1" \
+    "langchain-google-genai>=4.2.1" \
+    "langchain-groq>=1.1.2" \
+    "pydantic>=2.12.5" \
+    "python-dotenv>=1.2.2" \
+    "tavily-python>=0.7.23" \
+    "uvicorn>=0.42.0"
+
+COPY . .
+
+EXPOSE 5000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]

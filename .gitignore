@@ -56,3 +56,4 @@ Thumbs.db
 *.sln
 *.sw?
 PRD.md
+DEPLOY_AWS.md
