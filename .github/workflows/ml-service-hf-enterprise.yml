@@ -29,13 +29,18 @@ jobs:
           HF_USERNAME: ${{ secrets.HF_USERNAME }}
           HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}
         run: |
+          # Strip any invisible newlines or carriage returns from the secrets
+          CLN_TOKEN=$(echo -n "$HF_TOKEN" | tr -d '\n\r')
+          CLN_USER=$(echo -n "$HF_USERNAME" | tr -d '\n\r')
+          CLN_SPACE=$(echo -n "$HF_SPACE_NAME" | tr -d '\n\r')
+          
           cd hf-deploy
-          # Force main branch to match Hugging Face
           git init -b main
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # Securely set variable then add remote to prevent shell parsing errors
-          REMOTE_URL="https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/${HF_SPACE_NAME}"
+          
+          # Use the cleaned variables
+          REMOTE_URL="https://${CLN_USER}:${CLN_TOKEN}@huggingface.co/spaces/${CLN_USER}/${CLN_SPACE}"
           git remote add space "$REMOTE_URL"
           git add .
           git commit -m "Deploy from GitHub Actions"
