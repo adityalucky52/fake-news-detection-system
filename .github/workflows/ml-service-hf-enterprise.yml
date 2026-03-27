@@ -30,10 +30,13 @@ jobs:
           HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}
         run: |
           cd hf-deploy
-          git init
+          # Force main branch to match Hugging Face
+          git init -b main
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME
+          # Securely set variable then add remote to prevent shell parsing errors
+          REMOTE_URL="https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/${HF_SPACE_NAME}"
+          git remote add space "$REMOTE_URL"
           git add .
           git commit -m "Deploy from GitHub Actions"
           git push -f space main
