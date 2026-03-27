@@ -24,11 +24,16 @@ jobs:
           cp -r ml-service/* hf-deploy/
 
       - name: Push to Hugging Face Space
-        uses: huggingface/huggingface-sync@v2
-        with:
-          github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: ${{ secrets.HF_USERNAME }}/${{ secrets.HF_SPACE_NAME }}
-          repo_type: space
-          space_sdk: docker
-          hf_token: ${{ secrets.HF_TOKEN }}
-          source_dir: hf-deploy
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ secrets.HF_USERNAME }}
+          HF_SPACE_NAME: ${{ secrets.HF_SPACE_NAME }}
+        run: |
+          cd hf-deploy
+          git init
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME
+          git add .
+          git commit -m "Deploy from GitHub Actions"
+          git push -f space main
