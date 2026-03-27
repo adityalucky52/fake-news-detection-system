@@ -90,7 +90,8 @@ async def _run_analysis(input_query: str) -> dict:
         parsed_json = json.loads(output_txt)
         return parsed_json
     except Exception as e:
-        print(f"Failed to parse agent JSON output: {e}. Raw output: {result['output']}")
+        raw = result['messages'][-1].content if result.get('messages') else "No output"
+        print(f"Failed to parse agent JSON output: {e}. Raw output: {raw}")
         return {
             "label": "ERROR",
             "trust_score": 0,

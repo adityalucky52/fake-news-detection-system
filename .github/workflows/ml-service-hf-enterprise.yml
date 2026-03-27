@@ -1,0 +1,34 @@
+name: Deploy ML Service to Hugging Face
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ml-service/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Hugging Face
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Isolate ML Service Directory
+        run: |
+          mkdir -p hf-deploy
+          cp -r ml-service/* hf-deploy/
+
+      - name: Push to Hugging Face Space
+        uses: huggingface/huggingface-sync@v2
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: ${{ secrets.HF_USERNAME }}/${{ secrets.HF_SPACE_NAME }}
+          repo_type: space
+          space_sdk: docker
+          hf_token: ${{ secrets.HF_TOKEN }}
+          source_dir: hf-deploy
