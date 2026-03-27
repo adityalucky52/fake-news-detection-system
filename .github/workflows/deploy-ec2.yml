@@ -1,0 +1,48 @@
+name: Deploy Native EC2 (No Docker)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+            # Navigate to the app directory
+            # Make sure this directory exists and is where you cloned the repo:
+            # git clone <repo> /opt/fake-news (or ~/fake-news-app)
+            cd ${{ secrets.EC2_APP_DIR || '~/fake-news-app' }}
+            
+            # 1. Pull the latest code
+            git pull origin main
+            
+            # 2. Build and Restart Backend
+            cd backend
+            npm install
+            npx prisma generate
+            npm run build
+            # If backend is already running, PM2 restarts it; if not, it starts it.
+            pm2 restart backend || pm2 start dist/server.js --name "backend"
+            pm2 save
+            
+            # 3. Build and Serve Frontend
+            cd ../frontend
+            npm install
+            npm run build
+            # Copy all built React/Vite files directly to the Nginx web directory
+            sudo rsync -av --delete dist/ /var/www/html/
+            
+            # Restart Nginx just to be sure configurations apply
+            sudo systemctl restart nginx
