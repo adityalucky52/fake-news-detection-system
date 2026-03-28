@@ -22,8 +22,8 @@ jobs:
           envs: ENV_FILE,ML_SERVICE_URL
           script: |
             # 1. Navigate to your project directory (Adjust the path if needed)
-            # Assuming you cloned the project into the home directory: ~/fake-news-system
-            cd ~/fake-news-system
+            # Assuming you cloned the project into the home directory: ~/fake-news-detection-system
+            cd ~/fake-news-detection-system
 
             # 2. Pull the latest code from the main branch
             git pull origin main
@@ -52,11 +52,11 @@ jobs:
             npm install
             npm run build
             
-            # The built frontend will now be in ~/fake-news-system/frontend/dist
+            # The built frontend will now be in ~/fake-news-detection-system/frontend/dist
             
             # 5. Update Nginx Configuration
             echo "--- Updating Nginx Configuration ---"
-            cd ~/fake-news-system
+            cd ~/fake-news-detection-system
             sudo cp nginx.conf /etc/nginx/sites-available/default
             sudo nginx -t
             sudo systemctl restart nginx
