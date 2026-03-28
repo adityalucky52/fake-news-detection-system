@@ -40,6 +40,8 @@ jobs:
             # 3. Build and Serve Frontend
             cd ../frontend
             npm install
+            # Inject the backend URL explicitly into Vite
+            echo "VITE_API_URL=http://${{ secrets.EC2_HOST }}:8000/api" > .env.production
             npm run build
             # Copy all built React/Vite files directly to the Nginx web directory
             sudo rsync -av --delete dist/ /var/www/html/
