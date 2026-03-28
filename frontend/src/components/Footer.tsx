@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Separator } from '@/components/ui/separator';
-
 export default function Footer() {
   return (
     <footer className="border-t py-6 mt-auto">
