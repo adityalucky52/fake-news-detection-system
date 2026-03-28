@@ -54,6 +54,13 @@ jobs:
             
             # The built frontend will now be in ~/fake-news-detection-system/frontend/dist
             
+            # 4.5 Move Frontend to Web Server Directory
+            echo "--- Exposing Frontend ---"
+            sudo rm -rf /var/www/fake-news-detection-system
+            sudo mkdir -p /var/www/fake-news-detection-system
+            sudo cp -r ~/fake-news-detection-system/frontend/dist/* /var/www/fake-news-detection-system/
+            sudo chown -R www-data:www-data /var/www/fake-news-detection-system
+            
             # 5. Update Nginx Configuration
             echo "--- Updating Nginx Configuration ---"
             cd ~/fake-news-detection-system
