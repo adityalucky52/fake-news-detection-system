@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.10-bullseye
 
 # Create a non-root user with ID 1000 (Required by Hugging Face Spaces)
 RUN useradd -m -u 1000 user
