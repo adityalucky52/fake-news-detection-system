@@ -41,7 +41,7 @@ jobs:
             
             # Restart backend using PM2
             # (If it's the first time, pm2 start will run, otherwise pm2 restart)
-            pm2 restart backend-api || pm2 start dist/server.js --name backend-api
+            pm2 restart backend-api --update-env || pm2 start dist/server.js --name backend-api
             
             # Navigate back to root
             cd ..
