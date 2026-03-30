@@ -86,6 +86,7 @@ export const getHistory = async (req: Request, res: Response, next: NextFunction
         label: true,
         confidence: true,
         text: true,
+        explanation: true,
         createdAt: true,
       },
     });
@@ -99,6 +100,8 @@ export const getHistory = async (req: Request, res: Response, next: NextFunction
           label: p.label,
           confidence: p.confidence,
           text_preview: p.text.substring(0, 100),
+          text: p.text,
+          explanation: p.explanation,
           createdAt: p.createdAt,
         })),
       },

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import api from '@/api/client';
 import type { RecentScan as Prediction } from '@/types/prediction';
 
@@ -17,6 +18,7 @@ export default function HistoryPage() {
   const [filter, setFilter] = useState('ALL');
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [selectedPrediction, setSelectedPrediction] = useState<Prediction | null>(null);
   const pp = 6;
 
   useEffect(() => { fetchData(); }, []);
@@ -136,7 +138,7 @@ export default function HistoryPage() {
                     const c = Math.round(p.confidence * 100);
                     const fake = p.label === 'FAKE';
                     return (
-                      <TableRow key={p.id}>
+                      <TableRow key={p.id} className="cursor-pointer hover:bg-accent/50" onClick={() => setSelectedPrediction(p)}>
                         <TableCell>
                           <div className="text-sm font-medium">{date}</div>
                           <div className="text-xs text-muted-foreground">{time}</div>
@@ -175,7 +177,7 @@ export default function HistoryPage() {
                 const c = Math.round(p.confidence * 100);
                 const fake = p.label === 'FAKE';
                 return (
-                  <div key={p.id} className="p-4 space-y-3">
+                  <div key={p.id} className="p-4 space-y-3 cursor-pointer hover:bg-accent/50 active:bg-accent transition-colors" onClick={() => setSelectedPrediction(p)}>
                     <div className="flex items-start justify-between gap-2">
                       <div className="text-xs text-muted-foreground">{date} · {time}</div>
                       <Badge variant={fake ? 'destructive' : 'default'} className={`gap-1 shrink-0 ${fake ? '' : 'bg-[var(--color-success)] hover:bg-[var(--color-success)]'}`}>
@@ -196,6 +198,53 @@ export default function HistoryPage() {
           </>
         )}
       </Card>
+
+      <Dialog open={!!selectedPrediction} onOpenChange={(open) => !open && setSelectedPrediction(null)}>
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Prediction Details</DialogTitle>
+          </DialogHeader>
+          {selectedPrediction && (
+            <div className="space-y-6 mt-4">
+              <div className="flex flex-wrap items-center gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs text-muted-foreground uppercase font-semibold">Date</span>
+                  <span className="text-sm">{fmtDate(selectedPrediction.createdAt).date} at {fmtDate(selectedPrediction.createdAt).time}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs text-muted-foreground uppercase font-semibold">Verdict</span>
+                  <Badge variant={selectedPrediction.label === 'FAKE' ? 'destructive' : 'default'} className={`mt-1 ${selectedPrediction.label !== 'FAKE' ? 'bg-[var(--color-success)] hover:bg-[var(--color-success)]' : ''}`}>
+                    {selectedPrediction.label}
+                  </Badge>
+                </div>
+                <div className="flex flex-col flex-1 min-w-[120px]">
+                  <span className="text-xs text-muted-foreground uppercase font-semibold">Confidence</span>
+                  <div className="flex items-center gap-3 mt-1">
+                    <Progress value={Math.round(selectedPrediction.confidence * 100)} className={`flex-1 h-2 ${selectedPrediction.label === 'FAKE' ? '[&>div]:bg-[var(--color-danger)]' : '[&>div]:bg-[var(--color-success)]'}`} />
+                    <span className="text-sm font-bold">{Math.round(selectedPrediction.confidence * 100)}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {(selectedPrediction as any).explanation && (
+                <div className="space-y-2">
+                  <h3 className="text-sm text-foreground font-semibold flex items-center gap-2"><CheckCircle className="h-4 w-4 text-primary" /> Analysis Reasoning</h3>
+                  <div className="p-4 rounded-lg bg-accent/30 text-sm whitespace-pre-wrap text-foreground/90 border">
+                    {(selectedPrediction as any).explanation}
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <h3 className="text-sm text-foreground font-semibold flex items-center gap-2"><FileText className="h-4 w-4 text-primary" /> Full Content</h3>
+                <div className="p-4 rounded-lg bg-muted text-sm whitespace-pre-wrap break-all text-muted-foreground border">
+                  {(selectedPrediction as any).text || selectedPrediction.text_preview}
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
