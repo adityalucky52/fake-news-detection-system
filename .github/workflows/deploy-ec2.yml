@@ -26,7 +26,8 @@ jobs:
             cd ~/fake-news-detection-system
 
             # 2. Pull the latest code from the main branch
-            git pull origin main
+            git fetch origin
+            git reset --hard origin/main
             
             # 2.5 Create Backend .env securely
             echo "$ENV_FILE" > backend/.env
