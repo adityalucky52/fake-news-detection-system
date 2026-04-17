@@ -28,7 +28,7 @@ export default function LoginPage() {
             <ShieldCheck className="h-12 w-12 text-primary" />
           </div>
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>Sign in to continue detecting fake news</CardDescription>
+          <CardDescription>Sign in to continue detecting fake article</CardDescription>
         </CardHeader>
 
         <CardContent >

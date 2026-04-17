@@ -18,7 +18,7 @@ const stats = [
 const tech = ['React', 'TypeScript', 'FastAPI', 'Python', 'Langchain', 'Groq', 'Llama 3.3'];
 
 const faqs = [
-  { q: 'How does TruthLens detect fake news?', a: 'TruthLens uses state-of-the-art Large Language Models (Llama 3.3 70B via Groq) orchestrated by Langchain agents to perform deep semantic analysis and fact-checking.' },
+  { q: 'How does TruthLens detect fake article?', a: 'TruthLens uses state-of-the-art Large Language Models (Llama 3.3 70B via Groq) orchestrated by Langchain agents to perform deep semantic analysis and fact-checking.' },
   { q: 'Do you store the text I analyze?', a: 'Yes, analyzed texts are stored in your personal history. All data is encrypted and only accessible to your account.' },
   { q: 'Is this service free to use?', a: 'Yes! FakeDetect is completely free and open-source. Register and start analyzing immediately.' },
 ];

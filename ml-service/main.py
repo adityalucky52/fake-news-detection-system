@@ -4,8 +4,8 @@ from pydantic import BaseModel, HttpUrl, Field
 from agent.fact_checker import analyze_url, analyze_text
 
 app = FastAPI(
-    title="Fake News Detection ML Service",
-    description="A microservice to fact-check news using Langchain and Groq."
+    title="Fake article Detection ML Service",
+    description="A microservice to fact-check article using Langchain and Groq."
 )
 
 # Allow requests from the Express backend or React frontend

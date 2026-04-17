@@ -28,7 +28,7 @@ async def analyze_url(url: str) -> dict:
     Passes the URL to the agent to research and fact-check.
     """
     try:
-        prompt_text = f"A user wants to check this URL: {url}. Please research the claims on that page or news regarding that URL."
+        prompt_text = f"A user wants to check this URL: {url}. Please research the claims on that page or article regarding that URL."
         return await _run_analysis(prompt_text)
     except Exception as e:
         print(f"Error checking fact from URL: {str(e)}")
@@ -66,7 +66,7 @@ async def _run_analysis(input_query: str) -> dict:
     A user has submitted the following query, text, or URL:
     "{input_query}"
     
-    1. First, MUST use your TavilySearch tool to search the internet and verify if reputable news sources are corroborating or debunking this claim.
+    1. First, MUST use your TavilySearch tool to search the internet and verify if reputable article sources are corroborating or debunking this claim.
     2. Then, based on the search results, decide if the overall claim is REAL, FAKE, or MISLEADING.
     
     You MUST respond in your final answer strictly in the following JSON format without formatting code blocks like ```json:

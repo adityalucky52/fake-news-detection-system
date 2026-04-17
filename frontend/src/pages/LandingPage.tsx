@@ -7,13 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import type { LandingFeature, LandingStep, LandingStat, FAQItem } from '@/types/landing';
 
 const features: LandingFeature[] = [
-  { icon: Shield, title: 'Agentic Fact-Checking', desc: 'Our system deploys intelligent Langchain agents that perform multi-step reasoning to verify news credibility.' },
+  { icon: Shield, title: 'Agentic Fact-Checking', desc: 'Our system deploys intelligent Langchain agents that perform multi-step reasoning to verify article credibility.' },
   { icon: Zap, title: 'LPU-Powered Inference', desc: 'Leveraging Groq\'s LPU architecture for near-instant responses from the powerful Llama 3.3 (70B) model.' },
   { icon: BarChart3, title: 'Transparent Reasoning', desc: 'Don\'t just get a label. Our AI provides a detailed logical explanation for every verdict it reaches.' },
 ];
 
 const steps: LandingStep[] = [
-  { icon: FileText, title: 'Input', desc: 'Enter any news article text or a direct URL to start the deep-scan process.' },
+  { icon: FileText, title: 'Input', desc: 'Enter any article article text or a direct URL to start the deep-scan process.' },
   { icon: Search, title: 'Agentic Scan', desc: 'Our AI agents perform cross-referencing and semantic analysis using the latest LLM reasoning protocols.' },
   { icon: CheckCircle, title: 'Verdict', desc: 'Get a comprehensive report with a confidence score, verdict, and a step-by-step logical explanation.' },
 ];
@@ -27,7 +27,7 @@ const stats: LandingStat[] = [
 const techStack = ['React', 'TypeScript', 'FastAPI', 'Python', 'Langchain', 'Groq', 'Llama 3.3'];
 
 const faqs: FAQItem[] = [
-  { q: 'How does TruthLens detect fake news?', a: 'TruthLens uses state-of-the-art Large Language Models (Llama 3.3 70B via Groq) orchestrated by Langchain agents to perform deep semantic analysis and fact-checking of the provided content.' },
+  { q: 'How does TruthLens detect fake article?', a: 'TruthLens uses state-of-the-art Large Language Models (Llama 3.3 70B via Groq) orchestrated by Langchain agents to perform deep semantic analysis and fact-checking of the provided content.' },
   { q: 'Do you store the text I analyze?', a: 'Yes, analyzed texts are stored in your personal history so you can review past analyses. All data is encrypted and only accessible to your account.' },
   { q: 'Is this service free to use?', a: 'Yes! TruthLens is completely free and open-source. Register for an account and start analyzing articles immediately with no limits.' },
 ];
@@ -45,10 +45,10 @@ export default function LandingPage() {
             <Shield className="h-3.5 w-3.5" /> Agentic AI Fact-Checking
           </Badge>
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-up">
-            Detect <span className="gradient-text">Fake News</span><br />In Seconds
+            Detect <span className="gradient-text">Fake article</span><br />In Seconds
           </h1>
           <p className="text-lg text-muted-foreground mb-10 max-w-xl mx-auto animate-fade-in-up" style={{ animationDelay: '.1s' }}>
-            Verify any news article or URL using our advanced AI agents powered by Llama 3.3 and Langchain.
+            Verify any article article or URL using our advanced AI agents powered by Llama 3.3 and Langchain.
           </p>
           <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '.2s' }}>
             <Button size="lg" asChild>
@@ -157,7 +157,7 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-20 px-6 text-center bg-card">
         <h2 className="text-3xl font-bold mb-4">Ready to Fight Misinformation?</h2>
-        <p className="text-muted-foreground mb-8">Join thousands of users who trust TruthLens to verify news.</p>
+        <p className="text-muted-foreground mb-8">Join thousands of users who trust TruthLens to verify article.</p>
         <Button size="lg" asChild>
           <Link to="/register">Get Started Free <ChevronRight className="h-4 w-4 ml-2" /></Link>
         </Button>

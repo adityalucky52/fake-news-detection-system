@@ -18,7 +18,7 @@ export default function Sidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const toolLinks = [
-    { to: '/app/analyze', icon: Sparkles, label: 'Analyze News', color: 'text-blue-500' },
+    { to: '/app/analyze', icon: Sparkles, label: 'Analyze article', color: 'text-blue-500' },
     { to: '/app/history', icon: History, label: 'History', color: 'text-violet-500' },
     { to: '/app/about', icon: Info, label: 'About', color: 'text-emerald-500' },
   ];

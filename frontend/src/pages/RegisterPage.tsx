@@ -35,7 +35,7 @@ export default function RegisterPage() {
             <ShieldCheck className="h-12 w-12 text-primary" />
           </div>
           <CardTitle className="text-2xl">Create Account</CardTitle>
-          <CardDescription>Join TruthLens and start verifying news</CardDescription>
+          <CardDescription>Join TruthLens and start verifying article</CardDescription>
         </CardHeader>
 
         <CardContent>

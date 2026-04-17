@@ -1,5 +1,5 @@
 ﻿---
-title: Fake News Detection ML
+title: Fake article Detection ML
 emoji: ⚡
 colorFrom: blue
 colorTo: indigo

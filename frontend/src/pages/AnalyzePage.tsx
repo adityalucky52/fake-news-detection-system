@@ -58,7 +58,7 @@ export default function AnalyzePage() {
   return (
     <div className="max-w-6xl mx-auto">
       <h1 className="text-2xl md:text-3xl font-extrabold mb-1">Analyze Content</h1>
-      <p className="text-muted-foreground text-sm mb-6 md:mb-8">Detect misinformation in news articles using our advanced AI agent.</p>
+      <p className="text-muted-foreground text-sm mb-6 md:mb-8">Detect misinformation in article articles using our advanced AI agent.</p>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Input Section */}
@@ -99,7 +99,7 @@ export default function AnalyzePage() {
                       type="url"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
-                      placeholder="https://www.example.com/news-article"
+                      placeholder="https://www.example.com/article-article"
                       className="w-full bg-transparent border-b-2 border-muted focus:border-primary outline-none py-3 text-lg transition-all"
                       autoFocus
                     />
